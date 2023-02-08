@@ -8,15 +8,15 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Repository;
 
-import model.domain.UserVo;
+import model.domain.AdminVo;
 import util.DBUtil;
 
 @Repository
-public class UserDao {
+public class AdminDao {
 	
 	
 	//아이디& 비밀번호 확인 메소드 임시로 로그인 인증용으로 쓰고 추후 수정 또는 이관
-	public boolean adminLogin(String id, String pw) throws SQLException {
+	public boolean userLogin(String id, String pw) throws SQLException {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -24,7 +24,7 @@ public class UserDao {
 		
 		try {
 			conn = DBUtil.getConnection();
-			pstmt = conn.prepareStatement("select * from user where u_id=? and u_pw=?");
+			pstmt = conn.prepareStatement("select * from admin where a_id=? and a_pw=?");
 			pstmt.setString(1, id);
 			pstmt.setString(2, pw);
 			rset = pstmt.executeQuery();
@@ -43,26 +43,18 @@ public class UserDao {
 	}
 	
 	
-	//----미완 고려할점 가입을 시킬때 필수정보는 얼마나 입력시킬거고 
-	// 정해둔 필수정보 이외의 정보를 입력하는 경우는? 그냥 입력안하면 null로 처리하면 되는거 아님?
-	// 최초 가입시 등급은 bronze로 조정/ 가입일은 now로 처리/ 
-	
-	public boolean insert(UserVo uvo) throws SQLException {
+	//관리자 등록
+	public boolean insert(AdminVo avo) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
 		try {
 			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement("INSERT INTO user VALUES(?,?,?,?,?,'bronze',now(),?)");
+			pstmt = con.prepareStatement("INSERT INTO admin VALUES(?,?)");
 			
-			pstmt.setString(1, uvo.getUId());
-			pstmt.setString(2, uvo.getUPw());
-			pstmt.setString(3, uvo.getUName());
-			pstmt.setString(4, uvo.getUMail());
-			pstmt.setString(5, uvo.getUPhone());
-//			pstmt.setString(6, "bronze");
-//			pstmt.setString(7, "now()");
-			pstmt.setInt(6, uvo.getUReward());
+			pstmt.setString(1, avo.getAId());
+			pstmt.setString(2, avo.getAPw());
+
 			
 			pstmt.executeUpdate();
 			
@@ -75,15 +67,14 @@ public class UserDao {
 		return false;
 	}
 
-	//회원삭제 관리자가 삭제시 해당 메소드로 바로 삭제
-	//회원탈퇴시 아이디비번 확인 메소드로 확인후 해당 메소드 호출
+	//관리자 삭제
 	public boolean delete(String id) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
 		try {
 			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement("delete from user where u_id=?");
+			pstmt = con.prepareStatement("delete from admin where a_id=?");
 			pstmt.setString(1, id);
 
 			int result = pstmt.executeUpdate();
@@ -101,18 +92,16 @@ public class UserDao {
 		return false;
 	}
 
-	// -------미완 고려해야할점 수정의 경우 id를 제외하곤 수정할게 참 많지 수정로직 자체는 고민을 좀 해봐야겠음
-	// 구매시 등급 조정이나 적립금부분이 있기때문에 주기적으로 해줘야 하는데 이건 프로시저로 해결하면될듯?
-	public void update(UserVo cvo) throws SQLException {
+	//관리자 비밀번호 수정
+	public void update(AdminVo avo) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = DBUtil.getConnection();
 
-			pstmt = con.prepareStatement("UPDATE customer SET password = ? , email = ? WHERE id = ?");
-			pstmt.setString(1, cvo.getPassword());
-			pstmt.setString(2, cvo.getEmail());
-			pstmt.setString(3, cvo.getId());
+			pstmt = con.prepareStatement("UPDATE admin SET a_pw = ? WHERE a_id = ?");
+			pstmt.setString(1, avo.getAPw());
+			pstmt.setString(2, avo.getAId());
 
 			pstmt.executeUpdate();
 
@@ -124,22 +113,22 @@ public class UserDao {
 		}
 	}
 
-	//전체 회원리스트
-	public ArrayList<UserVo> getUsers() throws SQLException {
+	//전체 관리자 리스트
+	public ArrayList<AdminVo> getAdmins() throws SQLException {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		ArrayList<UserVo> allList = null;
+		ArrayList<AdminVo> allList = null;
 		try {
 			conn = DBUtil.getConnection();
-			pstmt = conn.prepareStatement("SELECT * FROM user");
+			pstmt = conn.prepareStatement("SELECT * FROM admin");
 			rset = pstmt.executeQuery();
 			
-			allList = new ArrayList<UserVo>();
+			allList = new ArrayList<AdminVo>();
 			
 			while (rset.next()) {
-				allList.add(new UserVo(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), rset.getString(5), rset.getString(6), rset.getString(7), rset.getInt(8)));
+				allList.add(new AdminVo(rset.getString(1), rset.getString(2)));
 			}
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
@@ -151,8 +140,8 @@ public class UserDao {
 		return allList;
 	}
 	
-	//회원검색 아이디로 리턴값은 일단 불린
-	public boolean getUser(String id) throws SQLException {
+	//관리자 검색 아이디로
+	public boolean getAdmin(String id) throws SQLException {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -160,7 +149,7 @@ public class UserDao {
 		
 		try {
 			conn = DBUtil.getConnection();
-			pstmt = conn.prepareStatement("select * from user where u_id=?");
+			pstmt = conn.prepareStatement("select * from admin where a_id=?");
 			pstmt.setString(1, id);
 			rset = pstmt.executeQuery();
 			

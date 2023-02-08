@@ -44,7 +44,20 @@ public class CustomerServlet {
 		return all; 
 	}
 	
+	@GetMapping("step04")
+	public String m4() {
+		System.out.println("m4()");
+		UserVo uvo = new UserVo("2","2");
+		try {
+			dao.insert(uvo);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "step03"; 
+	}
 	
+//////////////////////위는 테스트존////////////////////////////////////////////////////////////	
 	
 	//logout - 세션 삭제 후 login.html로 이동
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
