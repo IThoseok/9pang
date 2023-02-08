@@ -1,0 +1,81 @@
+DROP TABLE IF EXISTS `user`;
+
+CREATE TABLE `user` (
+	`u_id`	varchar(10)	NOT NULL,
+	`u_pw`	varchar(10)	NULL,
+	`u_name`	varchar(5)	NULL,
+	`u_mail`	varchar(20)	NULL,
+	`u_phone`	varchar(20)	NULL,
+	`u_grade`	varchar(10)	NULL,
+	`u_rdate`	datetime	NULL,
+	`u_reward`	int	NULL
+);
+
+DROP TABLE IF EXISTS `admin`;
+
+CREATE TABLE `admin` (
+	`a_id`	varchar(10)	NOT NULL,
+	`a_pw`	varchar(10)	NULL
+);
+
+DROP TABLE IF EXISTS `product`;
+
+CREATE TABLE `product` (
+	`p_num`	int	NOT NULL  AUTO_INCREMENT,
+	`p_cate`	varchar(10)	NULL,
+	`p_name`	varchar(20)	NULL,
+	`p_sellprc`	int	NULL,
+	`p_buyprc`	int	NULL,
+	`p_stock`	int	NULL,
+	`p_rdate`	datetime	NULL,
+	`p_sell`	int	NULL,
+	`p_detail`	text	null,
+	PRIMARY KEY(p_num)
+);
+
+DROP TABLE IF EXISTS `cart`;
+
+CREATE TABLE `cart` (
+	`cart_num`	int	NOT null AUTO_INCREMENT,
+	`u_id`	varchar(10)	NULL,
+	`p_num`	int	NULL,
+	`p_count`	int	null,
+	PRIMARY KEY(cart_num)
+);
+
+DROP TABLE IF EXISTS `order`;
+
+CREATE TABLE `order` (
+	`order_num`	int	NOT null AUTO_INCREMENT,
+	`u_id`	varchar(10)	NULL,
+	`order_date`	datetime	NULL,
+	`receiver_name`	varchar(10)	NULL,
+	`receiver_phone`	varchar(20)	NULL,
+	`receiver_addr`	varchar(30)	NULL,
+	`tracking_num`	int	null,
+	PRIMARY KEY(order_num)
+);
+
+DROP TABLE IF EXISTS `order_detail`;
+
+CREATE TABLE `order_detail` (
+	`order_detail_num`	int	NOT null AUTO_INCREMENT,
+	`order_num`	int	NULL,
+	`p_num`	int	NULL,
+	`p_count`	int	NULL,
+	`p_sellprc`	int	NULL,
+	`order_stat`	varchar(10)	NULL,
+	`refund`	int	NULL,
+	`Field`	VARCHAR(255)	null,
+	PRIMARY KEY(order_detail_num)
+);
+
+DROP TABLE IF EXISTS `category`;
+
+CREATE TABLE `category` (
+	`ctg_num`	int	NOT null AUTO_INCREMENT,
+	`ctg_name`	varchar(10)	NULL,
+	`ctg_lv`	int	NULL,
+	`Field`	VARCHAR(255)	null,
+	PRIMARY KEY(ctg_num)
+);

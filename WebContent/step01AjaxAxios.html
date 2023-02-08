@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>step01AjaxAxios.html</title>
+
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+	
+	<h3>Spring의 새로운 응답 기술 학습</h3>
+	
+	<br><hr><br>
+	이전까지의 실습 코드 : controller에서 jsp를 통해서 응답 : String or ModelAndView <br>
+	현 실습 코드 : controller에서 요청한 html 비동기 코드에 직접 응답: jsp 사용 안하겠다는 의미<br>
+	
+	
+	<div id="dataView"></div>
+	<button onclick="reqResAxios1()">1. 비동기 요청</button>
+
+<script>
+	function reqResAxios1(){
+		axios({
+			  method: 'get',
+			  url:'step03'
+			}) 
+			.then(function(resData){
+				console.log(resData);
+				document.querySelector("#dataView").innerHTML = resData;
+		});
+	}	
+</script>
+</body>
+</html>
+
