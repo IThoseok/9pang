@@ -26,4 +26,16 @@ public class UserVo {
 		this.uId = uId;
 		this.uPw = uPw;
 	}
+	public UserVo(String uId) {
+		this.uId = uId;
+	}
+	
+	public UserVo(String uId, String uPw, String uName, String uMail, String uPhone) {
+		this.uId = uId;
+		this.uPw = uPw;
+		this.uName = uName;
+		this.uMail = uMail;
+		this.uPhone = uPhone;
+	}
+	
 }

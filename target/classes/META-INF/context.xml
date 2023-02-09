@@ -12,13 +12,13 @@
               maxWaitMillis="-1"/> -->
               
    	<!-- mysql db 설정 정보 -->
-   	<Resource name="jdbc/mysql" auth="Container"
+  <!--  	<Resource name="jdbc/mysql" auth="Container"
               type="javax.sql.DataSource" 
               driverClassName="com.mysql.cj.jdbc.Driver"
               url="jdbc:mysql://localhost/hta2?characterEncoding=UTF-8"
               username="root" password="321321" 
               maxTotal="20" maxIdle="10"
-              maxWaitMillis="-1"/>
+              maxWaitMillis="-1"/> -->
    	
    	<!-- maria db 설정 정보 -->
    	<!-- db2 db 설정 정보 -->

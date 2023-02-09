@@ -16,7 +16,7 @@ public class UserDao {
 	
 	
 	//아이디& 비밀번호 확인 메소드 임시로 로그인 인증용으로 쓰고 추후 수정 또는 이관
-	public boolean adminLogin(String id, String pw) throws SQLException {
+	public boolean userLogin(String id, String pw) throws SQLException {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -24,6 +24,7 @@ public class UserDao {
 		
 		try {
 			conn = DBUtil.getConnection();
+			System.out.println("디비접속");
 			pstmt = conn.prepareStatement("select * from user where u_id=? and u_pw=?");
 			pstmt.setString(1, id);
 			pstmt.setString(2, pw);
@@ -53,7 +54,8 @@ public class UserDao {
 		
 		try {
 			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement("INSERT INTO user VALUES(?,?,?,?,?,'bronze',now(),?)");
+			System.out.println("인서트");
+			pstmt = con.prepareStatement("INSERT INTO user VALUES(?,?,?,?,?,'bronze',now(),0)");
 			
 			pstmt.setString(1, uvo.getUId());
 			pstmt.setString(2, uvo.getUPw());
@@ -62,7 +64,7 @@ public class UserDao {
 			pstmt.setString(5, uvo.getUPhone());
 //			pstmt.setString(6, "bronze");
 //			pstmt.setString(7, "now()");
-			pstmt.setInt(6, uvo.getUReward());
+//			pstmt.setInt(6, uvo.getUReward());
 			
 			pstmt.executeUpdate();
 			
