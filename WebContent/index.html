@@ -3,14 +3,87 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
-</head>
-<body>
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	rel="stylesheet">
+<script src="https://www.w3schools.com/lib/w3.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-	<a href='cccc/test1'>회원가입</a><br>
-	<a href="cccc/test2">로그인</a><br>
-	<a href="test3">상품보기</a><br>
-	<a href="test4">회원보기</a><br>
-	<a href="test5">장바구니 보기</a><br>
-	<a href="test6">카테고리 보기</a><br>
+
+
+
+</head>
+
+<body>
+<header w3-include-html="header.html" style="padding-left:400px"></header>
+
+<script>
+w3.includeHTML();
+</script>
+
+<nav w3-include-html="nav.html"></nav>
+
+<script>
+w3.includeHTML();
+</script>
+
+<div w3-include-html="slide.html" id="playground-container"></div>
+
+<script>
+w3.includeHTML();
+</script>
+
+
+
+<script>
+	$('#myCarousel').carousel({
+		interval : 2500,
+	});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Accordion 
+function myAccFunc() {
+  var x = document.getElementById("demoAcc");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else {
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+
+
+
+// Open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+ 
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+</script>
+
+
 </body>
 </html>

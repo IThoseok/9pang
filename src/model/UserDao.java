@@ -34,8 +34,8 @@ public class UserDao {
 				return true;
 			}
 		} catch (SQLException sqle) {
+			//System.out.println(sqle);
 			sqle.printStackTrace();
-			throw sqle;
 		} finally {
 			DBUtil.close(conn, pstmt, rset);
 		}
@@ -112,9 +112,9 @@ public class UserDao {
 			con = DBUtil.getConnection();
 
 			pstmt = con.prepareStatement("UPDATE customer SET password = ? , email = ? WHERE id = ?");
-			pstmt.setString(1, cvo.getPassword());
-			pstmt.setString(2, cvo.getEmail());
-			pstmt.setString(3, cvo.getId());
+//			pstmt.setString(1, cvo.getPassword());
+//			pstmt.setString(2, cvo.getEmail());
+//			pstmt.setString(3, cvo.getId());
 
 			pstmt.executeUpdate();
 

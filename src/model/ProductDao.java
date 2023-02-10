@@ -107,9 +107,9 @@ public class ProductDao {
 			con = DBUtil.getConnection();
 
 			pstmt = con.prepareStatement("UPDATE customer SET password = ? , email = ? WHERE id = ?");
-			pstmt.setString(1, pvo.getPassword());
-			pstmt.setString(2, pvo.getEmail());
-			pstmt.setString(3, pvo.getId());
+//			pstmt.setString(1, pvo.getPassword());
+//			pstmt.setString(2, pvo.getEmail());
+//			pstmt.setString(3, pvo.getId());
 			pstmt.setString(3, null);
 
 			pstmt.executeUpdate();

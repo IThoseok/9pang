@@ -85,8 +85,9 @@ public class cccc {
 		return "check"; 
 	}
 	
+	//로그인후 회원용 관리자용 페이지 나눠 보내는 메소드
 	@RequestMapping(value = "login", method = RequestMethod.POST)
-	public String login(Model sessionData, @RequestParam String id, @RequestParam String pw) throws SQLException {
+	public String login(Model sessionData, @RequestParam String id, @RequestParam String pw, HttpServletRequest req) throws SQLException {
 		boolean validate = udao.userLogin(id, pw);
 		System.out.println("여기실행?");
 		//로그인폼은 포스트맨으로 대체했음
@@ -94,7 +95,8 @@ public class cccc {
 			sessionData.addAttribute("id", id);
 			return "check";			
 		}else {
-			return "test2";			
+			req.setAttribute("errorMsg","아이디 또는 비밀번호를 확인해주세요");
+			return "error";			
 			
 		}
 	}
@@ -256,8 +258,8 @@ public class cccc {
 //	}
 	
 	//예외 처리에 대한 중복 코드를 분리해서 예외처리 전담 메소드
-	@ExceptionHandler(SQLException.class) //이렇게하는게 원칙이긴함
-	public String totalEx(SQLException e, HttpServletRequest req) {
+	@ExceptionHandler //이렇게하는게 원칙이긴함
+	public String totalEx(Exception e, HttpServletRequest req) {
 		System.out.println("예외전담");
 		e.printStackTrace();
 		req.setAttribute("errorMsg", e.getMessage());
