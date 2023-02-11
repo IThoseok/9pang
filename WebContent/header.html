@@ -16,12 +16,55 @@
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
 .fa-anchor,.fa-coffee {font-size:200px}
-
+.fstmenu {
+    --swiper-theme-color: #007aff;
+    --swiper-navigation-size: 44px;
+    font: 0.75em Verdana,Dotum,AppleGothic,sans-serif;
+    color: #353535;
+    font-family: 'Lato','NanumSquare',sans-serif;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background: #F7F7F7;
+    height: 44px;
+    line-height: 44px;
+    text-align: right;
+}
 </style>
 
-<!-- Navbar -->
+</head>
+
+
+<body>
+
+
+
+<!-- header -->
 <div class="w3-top">
-  <div class="w3-bar w3-blue w3-card w3-left-align w3-large"  style="padding:60">
+
+  <div class="w3-bar w3-blue w3-card w3-left-align w3-large"  style="padding:0">
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    
+    <a href="detail.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">상세페이지테스트링크</a>
+    <a href="couflix?command=tvAll" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">TV</a>
+    
+    <a href="search.jsp" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">검색</a>
+    <a href="insertUserForm.jsp" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">회원가입</a>
+    
+	   <div class="w3-dropdown-hover w3-right-align">
+	    <button class="w3-button w3-padding-15">
+	      관리 <i class="fa fa-caret-down"></i>
+	    </button>
+	    <div class="w3-dropdown-content w3-card-4 w3-bar-block">
+	      <a href="couflix?command=movieDB" class="w3-bar-item w3-button">영화관리</a>
+	      <a href="couflix?command=tvDB" class="w3-bar-item w3-button">Tv관리</a>
+	      <a href="couflix?command=userDB" class="w3-bar-item w3-button">회원관리</a>
+	    </div>
+	  </div>
+  </div>
+
+
+  <div class="w3-bar w3-blue w3-card w3-left-align w3-large"  style="padding:0">
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
     
     <a href="couflix?command=movieAll" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">영화</a>
@@ -42,9 +85,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 	  </div>
   </div>
 </div>
-</head>
 
 
-<body>
 </body>
 </html>

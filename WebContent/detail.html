@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	rel="stylesheet">
+<script src="https://www.w3schools.com/lib/w3.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>eCommerce Product Detail</title>
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700"
+	rel="stylesheet">
+<style>
+.cdtl_sec {
+    swiper-theme-color: #007aff;
+    font-size: 12px;
+    -webkit-text-size-adjust: none;
+    font-family: "Spoqa-Regular", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", Arial, sans-serif;
+    line-height: 1.5em;
+    margin: 0;
+    padding: 0;
+}
+
+#table {
+    --swiper-theme-color: #007aff;
+    -webkit-text-size-adjust: none;
+    color: #222;
+    margin: 0;
+    padding: 0;
+    font-family: "Spoqa-Regular", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.5em;
+    border: 1;
+    border-spacing: 0;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+</style>
+
+
+</head>
+
+
+
+
+
+<body>
+	<header w3-include-html="header.html" style="padding-left: 200px"></header>
+
+	<script>
+		w3.includeHTML();
+	</script>
+
+	<nav w3-include-html="nav.html"></nav>
+
+	<script>
+		w3.includeHTML();
+	</script>
+
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<!-- 상세페이지 상단구성 시작 -->
+<div style="float: left; padding-left: 200px">
+	<div class="container">
+		<div class="card">
+			<div class="container-fliud">
+				<div class="wrapper row">
+
+					<div class="w3-container" id="apartment" style="float: left; width: 45%; padding:10px;">
+						<h2 class="w3-text-green"></h2>
+						<div class="w3-display-container mySlides" style="display: none;">
+							<img src="images/nopic.jpg"
+								style="width: 100%; margin-bottom: -6px">
+							<div class="w3-display-bottomleft w3-container w3-black">
+								<p>Living Room</p>
+							</div>
+						</div>
+						<div class="w3-display-container mySlides" style="display: block;">
+							<img src="images/nopic.jpg"
+								style="width: 100%; margin-bottom: -6px">
+							<div class="w3-display-bottomleft w3-container w3-black">
+								<p>Dining Room</p>
+							</div>
+						</div>
+						<div class="w3-display-container mySlides" style="display: none;">
+							<img src="images/nopic.jpg"
+								style="width: 100%; margin-bottom: -6px">
+							<div class="w3-display-bottomleft w3-container w3-black">
+								<p>Bedroom</p>
+							</div>
+						</div>
+						<div class="w3-display-container mySlides" style="display: none;">
+							<img src="images/nopic.jpg"
+								style="width: 100%; margin-bottom: -6px">
+							<div class="w3-display-bottomleft w3-container w3-black">
+								<p>Living Room II</p>
+							</div>
+						</div>
+					</div>
+
+					<!-- <div class="preview col-md-6">
+						
+						<div class="preview-pic tab-content">
+						  <div class="tab-pane active" id="pic-1"><img src="http://placekitten.com/400/252" /></div>
+						  <div class="tab-pane" id="pic-2"><img src="http://placekitten.com/400/252" /></div>
+						  <div class="tab-pane" id="pic-3"><img src="http://placekitten.com/400/252" /></div>
+						  <div class="tab-pane" id="pic-4"><img src="http://placekitten.com/400/252" /></div>
+						  <div class="tab-pane" id="pic-5"><img src="http://placekitten.com/400/252" /></div>
+						</div>
+						<ul class="preview-thumbnail nav nav-tabs">
+						  <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
+						  <li><a data-target="#pic-2" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
+						  <li><a data-target="#pic-3" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
+						  <li><a data-target="#pic-4" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
+						  <li><a data-target="#pic-5" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
+						</ul>
+						
+					</div> -->
+					<div class="details col-md-6 " style="float: left;">
+					<h3 class="product-title">	상품명여따가 적어적어 </h3>
+						<div class="rating">
+							<div class="stars">
+								<span class="fa fa-star checked"></span> <span
+									class="fa fa-star checked"></span> <span
+									class="fa fa-star checked"></span> <span class="fa fa-star"></span>
+								<span class="fa fa-star"></span>
+							</div>
+							<span class="review-no">여기만약 리뷰할거면 리뷰수로드</span>
+						</div>
+						<p class="product-description">여기는 상품설명 쏼라쌀라쌀라사라라라라라라라라라랄라라라라라</p>
+						<h4 class="price">
+							판매가: <span>18000원</span>
+						</h4>
+						<p class="vote">
+							<strong>91%</strong> of buyers enjoyed this product! <strong>(87
+								votes)</strong>
+						</p>
+						<!-- <h5 class="sizes">
+							sizes: <span class="size" data-toggle="tooltip" title="small">s</span>
+							<span class="size" data-toggle="tooltip" title="medium">m</span>
+							<span class="size" data-toggle="tooltip" title="large">l</span> <span
+								class="size" data-toggle="tooltip" title="xtra large">xl</span>
+						</h5> -->
+						<!-- <h5 class="colors">
+							colors: <span class="color orange not-available"
+								data-toggle="tooltip" title="Not In store"></span> <span
+								class="color green"></span> <span class="color blue"></span>
+						</h5> -->
+						<div class="action">
+						
+						<span class="quantity" >
+                                  <input class="w3-input w3-border" type="number" value="1" name="quantity" min="1" max="10" style="width: 100px;">
+                                  
+                                  </span>여기나중에 합계가격넣어주기
+						<br>
+							<button class="add-to-cart btn btn-default" type="button">장바구니에 담기</button>
+							<button class="add-to-cart btn btn-default" type="button">바로결제??</button>
+							<button class="like btn btn-default" type="button">
+								<span class="fa fa-heart"></span>
+							</button>
+						</div>
+					</div>
+
+					<div class="w3-row-padding w3-section" style="float: ;">
+						<div class="w3-col s3">
+							<img class="demo w3-opacity w3-hover-opacity-off w3-opacity-off"
+								src="images/nopic.jpg"
+								style="width: 60px; cursor: pointer" onclick="currentDiv(1)"
+								title="Living room">
+						</div>
+						<div class="w3-col s3">
+							<img class="demo w3-opacity w3-hover-opacity-off"
+								src="images/nopic.jpg" style="width: 60px; cursor: pointer"
+								onclick="currentDiv(2)" title="Dining room">
+						</div>
+						<div class="w3-col s3">
+							<img class="demo w3-opacity w3-hover-opacity-off"
+								src="images/nopic.jpg" style="width: 60px; cursor: pointer"
+								onclick="currentDiv(3)" title="Bedroom">
+						</div>
+						<div class="w3-col s3">
+							<img class="demo w3-opacity w3-hover-opacity-off"
+								src="images/nopic.jpg" style="width: 60px; cursor: pointer"
+								onclick="currentDiv(4)" title="Second Living Room">
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 하단 상품필수정보 -->
+		<div class="cdtl_sec">
+		<div class="cdtl_sec_titarea ty_tbl">
+			<h4 class="cdtl_tit_info">상품필수정보</h4>
+		</div>
+		<div class="cdtl_cont_info">
+			<div class="cdtl_tbl ty2">
+				<table summary="상품 필수정보 보여주는 표" id="table">
+					<caption>상품 필수정보</caption>
+					<colgroup><col style="width:22%"><col></colgroup>
+					<tbody>
+					<tr>
+							<th scope="row"><div class="in">품명 및 모델명</div></th>
+							<td><div class="in">상세설명참조</div></td>
+						</tr>
+					<tr>
+							<th scope="row"><div class="in">식품의 유형</div></th>
+							<td><div class="in">카테고리땡겨오면됨</div></td>
+						</tr>
+					<tr>
+							<th scope="row"><div class="in">생산자 및 소재지</div></th>
+							<td><div class="in">여기는 만약 제품테이블에 생산자 컬럼이있으면 땡겨오면 됨</div></td>
+						</tr>
+					<tr>
+							<th scope="row"><div class="in">수입자</div></th>
+							<td><div class="in">해당사항 없음</div></td>
+						</tr>
+					<tr>
+							<th scope="row"><div class="in">포장 단위별 내용물의 용량 (중량), 수량, 크기</div></th>
+							<td><div class="in">제품중량 또는 수량 또는 크기 땡겨오면됨</div></td>
+						</tr>
+					<tr>
+							<th scope="row"><div class="in">주원료/함량(원료 원산지)</div></th>
+							<td><div class="in">[상세설명참조]</div></td>
+						</tr>
+					<tr>
+							<th scope="row"><div class="in">영양성분</div></th>
+							<td><div class="in">[상세설명참조]</div></td>
+						</tr>
+					<tr>
+							<th scope="row"><div class="in">유전자 변형식품 여부</div></th>
+							<td><div class="in">해당사항 없음</div></td>
+						</tr>
+					<tr>
+							<th scope="row"><div class="in">소비자 안전을 위한 주의 사항</div></th>
+							<td><div class="in">상세설명 참조</div></td>
+						</tr>
+					<tr>
+							<th scope="row"><div class="in">소비자 상담 관련 전화번호</div></th>
+							<td><div class="in">02-999-9999</div></td>
+						</tr>
+					<tr>
+							<th scope="row"><div class="in">수입식품안전관리특별법에 따른 수입신고 필함 여부</div></th>
+							<td><div class="in">해당사항 없음</div></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>		
+</div>
+</div>	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<script>
+		//Slideshow Apartment Images
+		var slideIndex = 1;
+		showDivs(slideIndex);
+
+		function plusDivs(n) {
+			showDivs(slideIndex += n);
+		}
+
+		function currentDiv(n) {
+			showDivs(slideIndex = n);
+		}
+
+		function showDivs(n) {
+			var i;
+			var x = document.getElementsByClassName("mySlides");
+			var dots = document.getElementsByClassName("demo");
+			if (n > x.length) {
+				slideIndex = 1
+			}
+			if (n < 1) {
+				slideIndex = x.length
+			}
+			for (i = 0; i < x.length; i++) {
+				x[i].style.display = "none";
+			}
+			for (i = 0; i < dots.length; i++) {
+				dots[i].className = dots[i].className.replace(
+						" w3-opacity-off", "");
+			}
+			x[slideIndex - 1].style.display = "block";
+			dots[slideIndex - 1].className += " w3-opacity-off";
+		}
+	</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<script>
+		// Accordion 
+		function myAccFunc() {
+			var x = document.getElementById("demoAcc");
+			if (x.className.indexOf("w3-show") == -1) {
+				x.className += " w3-show";
+			} else {
+				x.className = x.className.replace(" w3-show", "");
+			}
+		}
+
+		// Open and close sidebar
+		function w3_open() {
+			document.getElementById("mySidebar").style.display = "block";
+			document.getElementById("myOverlay").style.display = "block";
+		}
+
+		function w3_close() {
+			document.getElementById("mySidebar").style.display = "none";
+			document.getElementById("myOverlay").style.display = "none";
+		}
+	</script>
+
+
+</body>
+</html>
