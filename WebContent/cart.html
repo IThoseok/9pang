@@ -76,11 +76,28 @@ w3.includeHTML();
 				</table>
 </div>
 
+<br><hr><br>
+  <div id="dataView" style="padding-left: 180px;">--------------------</div>
+<!-- <script src="step07.js"></script> -->
 
-  <div id="view"></div>
-<script src="step07.js"></script>
+	<button onclick="reqResAxios1()" style="padding-left: 180px;">1. 비동기 요청</button>
+
+<script>
 
 
+
+	function reqResAxios1(){
+		axios({
+			  method: 'post',
+			  url:'cccc/cart',
+			  withCredentials: true
+			}) 
+			.then(function(resData){
+				console.log(resData);
+				document.querySelector("#dataView").innerHTML = resData;
+		});
+	}	
+</script>
 
 
 

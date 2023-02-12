@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,11 +53,12 @@ public class cccc {
 	private OrderDetailDao oddao;
 	@Autowired
 	private ProductDao pdao;
+
 	
-//	@ModelAttribute("cart")
-//	public CartVo cart() {
-//		return new CartVo();
-//	}
+	@ModelAttribute("cart")
+	public ArrayList<CartVo> cart() {
+		return new ArrayList<CartVo>();
+	}
 	
 //	<a href="9pang/test1">회원가입</a>
 //	<a href="9pang/test2">로그인</a>
@@ -74,13 +76,21 @@ public class cccc {
 //		
 //		return mv; 
 //	}
-	@GetMapping("step03")
-	public @ResponseBody Model m3( Model sessionData) {
+	@PostMapping("step03")
+	public @ResponseBody ArrayList<CartVo> m3( ArrayList<CartVo> all) {
 		System.out.println("m3()");
-		System.out.println(sessionData);
-		System.out.println(sessionData.getAttribute("cart"));
-		return (Model) sessionData.getAttribute("cart");
+//		System.out.println(sessionData.getAttribute("cart"));
+//		System.out.println(sessionData.getAttribute("id"));
+		System.out.println(all);
+		return all;
 	}
+//	@GetMapping("step03")
+//	public @ResponseBody ArrayList<CartVo> m3( @ModelAttribute("cart") ArrayList<CartVo> all) {
+//		System.out.println("m3()");
+//		System.out.println(all);
+//		return all;
+//	}
+	
 	
 	@GetMapping("test1")
 	public String m1() {
@@ -101,21 +111,44 @@ public class cccc {
 	}
 	
 	//카트로 보내기 지금은 세션처리 여기서 했지만 원래는 로그인하면 그때 같이 처리하는거임 오케? ㅇㅋㅇㅋ
-	@GetMapping("cart")
-	public String cartView( Model sessionData) throws SQLException {
-		System.out.println("cartView");
-		ArrayList<CartVo> all = null;
+//	@GetMapping("cart")
+//	public String cartView( Model sessionData, ArrayList<CartVo> all) throws SQLException {
+//		System.out.println("cartView");
+//		//ArrayList<CartVo> all = null;
+//		
+//		if(sessionData.getAttribute("id")==null) {
+//			System.out.println("카트정보 없어요");
+//			return "redirect:/login.html";
+//		}else {
+//			all = cdao.getCarts((String)sessionData.getAttribute("id"));
+//			
+//			sessionData.addAttribute("cart", all);//카트 리스트 세션저장
+//			System.out.println("카트정보:"+  sessionData.getAttribute("cart"));
+//		}
+//		return "redirect:step03"; //redirect:step03 이렇게하면 또 되네..
+//	}
+	@GetMapping("cart2")
+	public String cartView2( Model sessionData, ArrayList<CartVo> all) throws SQLException {
+		System.out.println("야호2");
+		System.out.println(sessionData.getAttribute("cart"));
+		System.out.println(sessionData.getAttribute("id"));
 		
-		if(sessionData.getAttribute("id")==null) {
-			System.out.println("카트정보 없어요");
-			return "redirect:/login.html";
-		}else {
-			all = cdao.getCarts((String)sessionData.getAttribute("id"));
-			
-			sessionData.addAttribute("cart", all);//카트 리스트 세션저장
-			System.out.println("카트정보:"+  sessionData.getAttribute("cart"));
-		}
-		return "check"; 
+		return "redirect:/cart.html";
+	}
+	
+//	@GetMapping("cart2")
+//	public String cartView3() throws SQLException {
+//		
+//		return "redirect:cart2";
+//	}
+	
+	@ResponseBody
+	@PostMapping("cart")
+	public ArrayList<CartVo> cartView( Model sessionData, ArrayList<CartVo> all) throws SQLException {
+		System.out.println("야호");
+		System.out.println(sessionData.getAttribute("cart"));
+		System.out.println(sessionData.getAttribute("id"));
+		return all;
 	}
 	
 	//로그아웃처리
@@ -139,16 +172,18 @@ public class cccc {
 		return "check"; 
 	}
 	
-	//로그인후 회원용 관리자용 페이지 나눠 보내는 메소드
+	//로그인후 아이디랑 카트 세션에 저장
 	@RequestMapping(value = "login", method = RequestMethod.POST)
-	public String login(Model sessionData, @RequestParam String id, @RequestParam String pw, HttpServletRequest req) throws SQLException {
+	public String login(Model sessionData, ArrayList<CartVo> all, @RequestParam String id, @RequestParam String pw, HttpServletRequest req) throws SQLException {
 		System.out.println(id+pw);
 		boolean validate = udao.userLogin(id, pw);
 		System.out.println("여기실행?");
 		//로그인폼은 포스트맨으로 대체했음
 		if(validate) {
 			sessionData.addAttribute("id", id);
-			return "check";			
+			all = cdao.getCarts(id);
+			sessionData.addAttribute("cart", all);//카트 리스트 세션저장
+			return "redirect:/index.html";			
 		}else {
 			req.setAttribute("errorMsg","아이디 또는 비밀번호를 확인해주세요");
 			return "error";			
