@@ -150,6 +150,33 @@ public class ProductDao {
 		
 		return allList;
 	}
+	//회원정보 기반 카트에 담긴 아이템 정보 출력
+	public ArrayList<ProductVo> getProducts(String id) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<ProductVo> allList = null;
+		try {
+			conn = DBUtil.getConnection();
+			pstmt = conn.prepareStatement("SELECT * FROM Product where p_num in(select p_num from cart where u_id=?)");
+			pstmt.setString(1, id);
+			rset = pstmt.executeQuery();
+			
+			allList = new ArrayList<ProductVo>();
+			
+			while (rset.next()) {
+				allList.add(new ProductVo(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getInt(4), rset.getInt(5), rset.getInt(6), rset.getString(7), rset.getInt(8), rset.getString(9)));
+			}
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			throw sqle;
+		} finally {
+			DBUtil.close(conn, pstmt, rset);
+		}
+		
+		return allList;
+	}
 	
 	// 상품검색 이름검색
 	// 이거 근데 번호검색도 있어야할거같은데.. 필요한경우 오버로딩으로 처리
@@ -163,6 +190,31 @@ public class ProductDao {
 			conn = DBUtil.getConnection();
 			pstmt = conn.prepareStatement("select * from product where p_name=?");
 			pstmt.setString(1, name);
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				return true;
+			}
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			throw sqle;
+		} finally {
+			DBUtil.close(conn, pstmt, rset);
+		}
+		
+		return false;
+	}
+	
+	public boolean getProduct(int num) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		
+		try {
+			conn = DBUtil.getConnection();
+			pstmt = conn.prepareStatement("select * from product where p_num=?");
+			pstmt.setInt(1, num);
 			rset = pstmt.executeQuery();
 			
 			if (rset.next()) {

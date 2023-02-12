@@ -16,6 +16,7 @@ public class CartVo {
 	private String uId;
 	private int pNum;
 	private int pCount;
+	private int pSellprc;
 	
 	
 }

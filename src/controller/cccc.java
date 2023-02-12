@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import model.AdminDao;
 import model.CartDao;
@@ -24,13 +27,14 @@ import model.OrderDao;
 import model.OrderDetailDao;
 import model.ProductDao;
 import model.UserDao;
+import model.domain.CartVo;
 import model.domain.UserVo;
 
 
 //@WebServlet("/CustomerServlet")
 
 @Controller
-@SessionAttributes({"id", "uvo"})
+@SessionAttributes({"id", "uvo", "cart"})
 @RequestMapping("cccc")
 public class cccc {       
 	
@@ -49,6 +53,10 @@ public class cccc {
 	@Autowired
 	private ProductDao pdao;
 	
+//	@ModelAttribute("cart")
+//	public CartVo cart() {
+//		return new CartVo();
+//	}
 	
 //	<a href="9pang/test1">회원가입</a>
 //	<a href="9pang/test2">로그인</a>
@@ -66,15 +74,61 @@ public class cccc {
 //		
 //		return mv; 
 //	}
+	@GetMapping("step03")
+	public @ResponseBody Model m3( Model sessionData) {
+		System.out.println("m3()");
+		System.out.println(sessionData);
+		System.out.println(sessionData.getAttribute("cart"));
+		return (Model) sessionData.getAttribute("cart");
+	}
+	
 	@GetMapping("test1")
 	public String m1() {
 		System.out.println("m1()1");
 		//ModelAndView mv = new ModelAndView();
 		//mv.setViewName("insertUserForm");
 		
-		return "insertUserForm"; 
+		return "check"; 
 	}
 	
+	@GetMapping("callCart")
+	public String callCart() {
+		System.out.println("m1()1");
+		//ModelAndView mv = new ModelAndView();
+		//mv.setViewName("insertUserForm");
+		
+		return "check"; 
+	}
+	
+	//카트로 보내기 지금은 세션처리 여기서 했지만 원래는 로그인하면 그때 같이 처리하는거임 오케? ㅇㅋㅇㅋ
+	@GetMapping("cart")
+	public String cartView( Model sessionData) throws SQLException {
+		System.out.println("cartView");
+		ArrayList<CartVo> all = null;
+		
+		if(sessionData.getAttribute("id")==null) {
+			System.out.println("카트정보 없어요");
+			return "redirect:/login.html";
+		}else {
+			all = cdao.getCarts((String)sessionData.getAttribute("id"));
+			
+			sessionData.addAttribute("cart", all);//카트 리스트 세션저장
+			System.out.println("카트정보:"+  sessionData.getAttribute("cart"));
+		}
+		return "check"; 
+	}
+	
+	//로그아웃처리
+	@GetMapping("logout")
+	public String logout(SessionStatus sess) {
+		System.out.println("로그아웃....");
+		sess.setComplete();
+		sess = null;
+		
+		return "redirect:/index.html"; 
+	}
+
+	//회원가입
 	@PostMapping("insert")
 	public String m3(Model sessionData, UserVo uvo) {
 		System.out.println("m3()");
@@ -88,6 +142,7 @@ public class cccc {
 	//로그인후 회원용 관리자용 페이지 나눠 보내는 메소드
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public String login(Model sessionData, @RequestParam String id, @RequestParam String pw, HttpServletRequest req) throws SQLException {
+		System.out.println(id+pw);
 		boolean validate = udao.userLogin(id, pw);
 		System.out.println("여기실행?");
 		//로그인폼은 포스트맨으로 대체했음
@@ -101,13 +156,13 @@ public class cccc {
 		}
 	}
 	
-	@RequestMapping(value = "test2", method = RequestMethod.GET)
+	@RequestMapping(value = "test", method = RequestMethod.GET)
 	public String m2() {
 		System.out.println("m2()");
 		//ModelAndView mv = new ModelAndView();
 		//mv.setViewName("insertUserForm");
 		
-		return "insertUserForm2"; 
+		return "insertUserForm"; 
 	}
 	
 	@RequestMapping("test4")

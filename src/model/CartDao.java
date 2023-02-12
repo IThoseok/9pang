@@ -50,11 +50,12 @@ public class CartDao {
 		
 		try {
 			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement("INSERT INTO Cart VALUES(null,?,?,?)");
+			pstmt = con.prepareStatement("INSERT INTO Cart VALUES(null,?,?,?,?)");
 			
 			pstmt.setString(1, cvo.getUId());
 			pstmt.setInt(2, cvo.getPNum());
 			pstmt.setInt(3, cvo.getPCount());
+			pstmt.setInt(4, cvo.getPSellprc());
 			
 			pstmt.executeUpdate();
 			
@@ -156,7 +157,7 @@ public class CartDao {
 			allList = new ArrayList<CartVo>();
 			
 			while (rset.next()) {
-				allList.add(new CartVo(rset.getInt(1), rset.getString(2), rset.getInt(3), rset.getInt(4)));
+				allList.add(new CartVo(rset.getInt(1), rset.getString(2), rset.getInt(3), rset.getInt(4), rset.getInt(5)));
 			}
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
@@ -168,18 +169,48 @@ public class CartDao {
 		return allList;
 	}
 	
-	// --------------회원 카트는 하나만 뽑는 경우는 없을텐데 일단 여기는 대기
+	// 아이디기반
 	public boolean getCart(String name) throws SQLException {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		
+		ArrayList<CartVo> allList = null;
 		try {
 			conn = DBUtil.getConnection();
-			pstmt = conn.prepareStatement("select * from Cart where p_name=?");
+			pstmt = conn.prepareStatement("select * from Cart where u_id=?");
 			pstmt.setString(1, name);
 			rset = pstmt.executeQuery();
+			
+			allList = new ArrayList<CartVo>();
+			
+			if (rset.next()) {
+				return true;
+			}
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			throw sqle;
+		} finally {
+			DBUtil.close(conn, pstmt, rset);
+		}
+		
+		return false;
+	}
+	
+	// 아이템정보 기반 개별카트정보 일단 대기
+	public boolean getCart2(String name) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<CartVo> allList = null;
+		try {
+			conn = DBUtil.getConnection();
+			pstmt = conn.prepareStatement("select * from Cart where u_id=?");
+			pstmt.setString(1, name);
+			rset = pstmt.executeQuery();
+			
+			allList = new ArrayList<CartVo>();
 			
 			if (rset.next()) {
 				return true;

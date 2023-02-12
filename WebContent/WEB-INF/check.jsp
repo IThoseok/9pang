@@ -10,8 +10,11 @@
 <BODY>
 
 ----${uvo.UId}---<br>
-${id}
-
+${id}---<br>
+${id * 10}---<br>
+카트정보: ${cart}---<br>
+<a href="${pageContext.request.contextPath}/index.html">리스트로
+				돌아가기</a>
 
 
 </BODY>
