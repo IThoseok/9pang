@@ -147,6 +147,8 @@ public class cccc {
 	public ArrayList<CartVo> cartView( Model sessionData, ArrayList<CartVo> all) throws SQLException {
 		System.out.println("야호");
 		System.out.println(sessionData.getAttribute("cart"));
+		all = (ArrayList<CartVo>) sessionData.getAttribute("cart");
+		System.out.println(all);
 		System.out.println(sessionData.getAttribute("id"));
 		return all;
 	}
