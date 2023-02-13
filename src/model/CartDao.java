@@ -50,12 +50,13 @@ public class CartDao {
 		
 		try {
 			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement("INSERT INTO Cart VALUES(null,?,?,?,?)");
+			pstmt = con.prepareStatement("INSERT INTO Cart VALUES(null,?,?,?,?,?)");
 			
 			pstmt.setString(1, cvo.getUId());
 			pstmt.setInt(2, cvo.getPNum());
 			pstmt.setInt(3, cvo.getPCount());
 			pstmt.setInt(4, cvo.getPSellprc());
+			pstmt.setString(5, cvo.getPName());
 			
 			pstmt.executeUpdate();
 			
@@ -157,7 +158,7 @@ public class CartDao {
 			allList = new ArrayList<CartVo>();
 			
 			while (rset.next()) {
-				allList.add(new CartVo(rset.getInt(1), rset.getString(2), rset.getInt(3), rset.getInt(4), rset.getInt(5)));
+				allList.add(new CartVo(rset.getInt(1), rset.getString(2), rset.getInt(3), rset.getInt(4), rset.getInt(5), rset.getString(6)));
 			}
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();

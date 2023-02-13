@@ -2,15 +2,19 @@ package controller;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +24,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import model.AdminDao;
 import model.CartDao;
@@ -35,7 +42,7 @@ import model.domain.UserVo;
 //@WebServlet("/CustomerServlet")
 
 @Controller
-@SessionAttributes({"id", "uvo", "cart"})
+@SessionAttributes({"id", "uvo", "cart", "cartNum"})
 @RequestMapping("cccc")
 public class cccc {       
 	
@@ -55,10 +62,10 @@ public class cccc {
 	private ProductDao pdao;
 
 	
-	@ModelAttribute("cart")
-	public ArrayList<CartVo> cart() {
-		return new ArrayList<CartVo>();
-	}
+//	@ModelAttribute("cart")
+//	public ArrayList<CartVo> cart() {
+//		return new ArrayList<CartVo>();
+//	}
 	
 //	<a href="9pang/test1">회원가입</a>
 //	<a href="9pang/test2">로그인</a>
@@ -142,21 +149,46 @@ public class cccc {
 //		return "redirect:cart2";
 //	}
 	
+	//aixos용 장바구니 데이터 전달
 	@ResponseBody
 	@PostMapping("cart")
 	public ArrayList<CartVo> cartView( Model sessionData, ArrayList<CartVo> all) throws SQLException {
-		System.out.println("야호");
-		System.out.println(sessionData.getAttribute("cart"));
 		all = (ArrayList<CartVo>) sessionData.getAttribute("cart");
-		System.out.println(all);
-		System.out.println(sessionData.getAttribute("id"));
 		return all;
 	}
 	
-	//로그아웃처리
+	//장바구니 수정시 세션 업데이트 db적용은 로그아웃시 반영
+	@ResponseBody
+	@PostMapping("updatesess")
+	public String cartUpdate(Model sessionData, @RequestBody ArrayList<CartVo> all) throws SQLException {
+		sessionData.addAttribute("cart", all);
+		System.out.println("갱신된세션"+sessionData.getAttribute("cart"));
+		return "cart update";
+	}
+	
+	//장바구니 상품삭제
+	@DeleteMapping(value = "cccc/{cartNum}")
+	public String deleteCart(Model sessionData, @PathVariable int cartNum) throws SQLException {
+		ArrayList<CartVo> all = (ArrayList<CartVo>) sessionData.getAttribute("cart");
+		System.out.println("받아온 넘버확인"+cartNum);
+		all.removeIf(list -> list.getCartNum()==cartNum);
+		sessionData.addAttribute("cart", all);
+		System.out.println("갱신된세션"+sessionData.getAttribute("cart"));
+		return "redirect:/cart.html";
+	}
+	
+	//로그아웃 장바구니 세션 db적용후 세션지우고 로그아웃처리
 	@GetMapping("logout")
-	public String logout(SessionStatus sess) {
+	public String logout(Model sessionData, SessionStatus sess) throws SQLException {
 		System.out.println("로그아웃....");
+		ArrayList<CartVo> all = (ArrayList<CartVo>) sessionData.getAttribute("cart");
+		all.forEach(c -> {
+			try {
+				cdao.update(c);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		});
 		sess.setComplete();
 		sess = null;
 		

@@ -46,7 +46,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
     
     <a href="detail.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">상세페이지테스트링크</a>
-    <a href="cccc/cart" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">카트1</a>
+    <a href="javascript:void(0);" onclick="goPost()"  class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">카트1</a>
     
     <a href="login.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">로그인</a>
     <a href="cccc/test" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">회원가입</a>
@@ -54,6 +54,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
     <a href="cccc/logout" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">로그아웃</a>
     <a href="cccc/cart2" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">카트2</a>
     
+
 	   <div class="w3-dropdown-hover w3-right-align">
 	    <button class="w3-button w3-padding-15">
 	      관리 <i class="fa fa-caret-down"></i>
@@ -88,7 +89,16 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 	  </div>
   </div>
 </div>
+<script type="text/javascript">
+function goPost(){
+    let f = document.createElement('form');
+    f.setAttribute('method', 'post');
+    f.setAttribute('action', 'cccc/cart');
+    document.body.appendChild(f);
+    f.submit();
+}
 
+</script>
 
 </body>
 </html>

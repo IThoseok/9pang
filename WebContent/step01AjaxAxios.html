@@ -29,6 +29,25 @@
 				document.querySelector("#dataView").innerHTML = resData;
 		});
 	}	
+	
+	
+	function ReqResPostAxios1(){
+		axios.post('cccc/updatesess', {
+				product
+		})
+		.then(function (resData){
+			//console.log(resData.config.data.name);
+			//resData = JSON.parse(resData.config.data);//스트링으로 받으니까 제이슨 변환필요??????????왜 갑자기 스트링으로 받음?? 설마이거 파라미터표현그거 안해서 제이슨변형안되가꼬 계속 제이슨변환햇던거임??
+			console.log(resData);
+			document.getElementById("dataView").innerHTML = resData.name+resData.age;
+		})
+		.catch(function (error){
+			document.getElementById("dataView").innerHTML ="잠시후 재요청"
+		});
+	}
+	
+	
+	
 </script>
 </body>
 </html>
