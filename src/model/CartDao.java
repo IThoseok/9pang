@@ -76,8 +76,7 @@ public class CartDao {
 		
 		try {
 			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement("delete from Cart where p_num=? and cart_num=?");
-			pstmt.setInt(1, cvo.getPNum());
+			pstmt = con.prepareStatement("delete from Cart where cart_num=?");
 			pstmt.setInt(1, cvo.getCartNum());
 
 			int result = pstmt.executeUpdate();

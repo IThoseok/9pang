@@ -19,17 +19,37 @@
 <body>
 <header w3-include-html="header.html" style="z-index:2; padding-left: 180px;"></header>
 
-<script>
-w3.includeHTML();
-</script>
 
 <nav w3-include-html="nav.html"></nav>
 
-<script>
-w3.includeHTML();
-</script>
 <br><br><br><br><br>
-<div w3-include-html="slide.html" id="playground-container" style="z-index:1; width:100%; padding-left: 180px;"></div>
+<div w3-include-html="slide.html" id="playground-container" style="z-index:1; padding-left: 180px;"></div>
+
+
+
+
+
+
+
+
+
+
+<br><br><br>
+
+<section w3-include-html="list.html" ></section>
+<section></section>
+
+
+
+
+
+
+
+
+
+
+
+
 
 <script>
 w3.includeHTML();
@@ -45,10 +65,14 @@ w3.includeHTML();
 
 
 
+<script type="text/javascript">
 
+$(document).ready(function() {
+    $('#list').click(function(event){event.preventDefault();$('#products .item').addClass('list-group-item');});
+    $('#grid').click(function(event){event.preventDefault();$('#products .item').removeClass('list-group-item');$('#products .item').addClass('grid-group-item');});
+});
 
-
-
+</script>
 
 
 

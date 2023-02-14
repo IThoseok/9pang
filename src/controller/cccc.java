@@ -166,14 +166,19 @@ public class cccc {
 		return "cart update";
 	}
 	
-	//장바구니 상품삭제
-	@DeleteMapping(value = "cccc/{cartNum}")
-	public String deleteCart(Model sessionData, @PathVariable int cartNum) throws SQLException {
+	//장바구니 상품삭제 //CartVo로 파라미터 설정해서도 체크해보기
+	@RequestMapping(value = "deleteCart", method = RequestMethod.DELETE)
+	public String deleteCart(Model sessionData, @RequestBody CartVo cartNum) throws SQLException {
 		ArrayList<CartVo> all = (ArrayList<CartVo>) sessionData.getAttribute("cart");
-		System.out.println("받아온 넘버확인"+cartNum);
-		all.removeIf(list -> list.getCartNum()==cartNum);
-		sessionData.addAttribute("cart", all);
-		System.out.println("갱신된세션"+sessionData.getAttribute("cart"));
+//		System.out.println("받아온 넘버확인"+cartNum);
+//		System.out.println("받아온 올확인"+all);
+		all.removeIf(list -> list.getCartNum()==cartNum.getCartNum());//세션수정용
+		if(cdao.delete(cartNum)) {//카트 db수정
+			System.out.println("장바구니 아이템삭제");
+		}
+//		System.out.println("수정한 올확인"+all);
+		//System.out.println("갱신된세션"+sessionData.getAttribute("cart"));
+//		sessionData.addAttribute("cart", all);
 		return "redirect:/cart.html";
 	}
 	
@@ -195,16 +200,6 @@ public class cccc {
 		return "redirect:/index.html"; 
 	}
 
-	//회원가입
-	@PostMapping("insert")
-	public String m3(Model sessionData, UserVo uvo) {
-		System.out.println("m3()");
-		System.out.println(uvo);
-		//udao.insert(uvo);
-		sessionData.addAttribute("uvo", uvo);
-		System.out.println("저장세션확인"+sessionData.getAttribute("uvo"));
-		return "check"; 
-	}
 	
 	//로그인후 아이디랑 카트 세션에 저장
 	@RequestMapping(value = "login", method = RequestMethod.POST)
@@ -225,12 +220,9 @@ public class cccc {
 		}
 	}
 	
-	@RequestMapping(value = "test", method = RequestMethod.GET)
+	//회원가입폼 이동
+	@RequestMapping(value = "insert", method = RequestMethod.GET)
 	public String m2() {
-		System.out.println("m2()");
-		//ModelAndView mv = new ModelAndView();
-		//mv.setViewName("insertUserForm");
-		
 		return "insertUserForm"; 
 	}
 	

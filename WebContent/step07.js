@@ -68,13 +68,13 @@ let data = 0;
 	console.log(product2[Number(obj.parentNode.parentNode.parentNode.className)]); //.className
 	console.log(JSON.stringify(product2[Number(obj.parentNode.parentNode.parentNode.className)]), "이건파싱한거"); //.className
 	data = product2[Number(obj.parentNode.parentNode.parentNode.className)].cartNum;//카트넘버 변수넣기
-	console.log(data, "data찍어보기");
+	console.log(data,typeof(data), "data찍어보기");
 	obj.parentNode.parentNode.parentNode.innerHTML = "";
-	axios.delete(`cccc/${data}`)
-		.then((res) => {
-		  console.log(res);
-		});	
-//	axios.delete(`cccc/deleteCart`, {data:{cartNum: data}, headers:{Authorization: "token"}})
+//	axios.delete(`cccc/deleteCart`)
+//		.then((res) => {
+//		  console.log(res);
+//		});	
+	axios.delete(`cccc/deleteCart`, {data:{cartNum: data}, headers:{Authorization: "token"}})
 //	axios.delete('cccc/deleteCart',  JSON.stringify(product2[Number(obj.parentNode.parentNode.parentNode.className)]), { // json을 json타입의 text로 변환
 //		  headers: {
 //		    "Content-Type": `application/json`, // application/json 타입 선언
